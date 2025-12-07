@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
   <meta name="apple-mobile-web-app-title" content="CodePen">
   <link rel="icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
@@ -42,7 +43,7 @@
         z-index: 1000;
         backdrop-filter: blur(10px);
         transition: transform 0.3s ease, opacity 0.3s ease;
-        padding: 15px;
+        padding: 20px;
         box-sizing: border-box;
         user-select: none;
     }
@@ -56,12 +57,12 @@
         position: absolute;
         top: 5px;
         right: 10px;
-        font-size: 20px;
+        font-size: 24px;
         color: #666;
         cursor: pointer;
         background: rgba(255,255,255,0.5);
-        width: 25px;
-        height: 25px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -71,8 +72,9 @@
     .message {
         z-index: 2;
         position: relative;
-        font-weight: 500;
+        font-weight: 600;
         color: #444;
+        line-height: 1.4;
     }
   </style>
 
@@ -124,8 +126,9 @@ function createPopup() {
   const popup = document.createElement('div');
   popup.className = 'popup';
 
-  const width = Math.floor(Math.random() * 120) + 220; 
-  const height = Math.floor(Math.random() * 40) + 60;
+  // Увеличил размеры окошек (+50px ширина, +20px высота)
+  const width = Math.floor(Math.random() * 150) + 270; 
+  const height = Math.floor(Math.random() * 50) + 80;
 
   const x = Math.floor(Math.random() * (screenWidth - width));
   const y = Math.floor(Math.random() * (screenHeight - height));
@@ -135,7 +138,9 @@ function createPopup() {
   popup.style.left = x + 'px';
   popup.style.top = y + 'px';
   popup.style.backgroundColor = bgColors[Math.floor(Math.random() * bgColors.length)];
-  popup.style.fontSize = Math.floor(Math.random() * 4) + 14 + 'px';
+  
+  // Увеличил размер шрифта (было 14-18px, стало 16-22px)
+  popup.style.fontSize = Math.floor(Math.random() * 7) + 16 + 'px';
 
   const tipText = tips[Math.floor(Math.random() * tips.length)];
 
@@ -182,10 +187,10 @@ function createMultiplePopups(count) {
     hint.innerHTML = 'Ровно год назад мы начали общаться 💜<br>Но это ещё не всё...<br>Готовься к продолжению:3'; 
     hint.style.cssText = `
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 15px; 
+            background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 15px; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            text-align: center; font-size: 20px; z-index: 1001; color: #333;
-            font-family: "Segoe UI", sans-serif;
+            text-align: center; font-size: 22px; z-index: 1001; color: #333;
+            font-family: "Segoe UI", sans-serif; font-weight: 600; line-height: 1.6;
         `;
     document.body.appendChild(hint);
   }, 15000); 
