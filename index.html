@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <link rel="icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+  <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
+  
+  <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
+
+  <title>Для тебя ❤️</title>
+
+  <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #f0f0f0;
+        overflow: hidden;
+        font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    #popup-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .popup {
+        position: absolute;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        cursor: pointer;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        padding: 15px;
+        box-sizing: border-box;
+        user-select: none;
+    }
+
+    .popup:hover {
+        transform: scale(1.05);
+        z-index: 1001;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        font-size: 20px;
+        color: #666;
+        cursor: pointer;
+        background: rgba(255,255,255,0.5);
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .message {
+        z-index: 2;
+        position: relative;
+        font-weight: 500;
+        color: #444;
+    }
+  </style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+</head>
+
+<body translate="no">
+  <div id="popup-container"></div>
+  
+    <script id="rendered-js" >
+const tips = [
+'Ты самая чудесная ദ്ദി˶ˊᵕˋ˶)✧',
+'Обожаю тебя ˃̶̤́ ‧̫ ˂̶̤̀',
+'Одевай теплее, там холодно!',
+'Я скучаю по тебе',
+'Жду нашей встречи',
+'Не забывай кушать и пить водичку~',
+'Не засиживайся допоздна (∗ᵒ̶̶̷̀ω˂̶́∗)੭₎₎̊₊♡',
+'Отдыхай побольше',
+'Ты мне очень важна',
+'Надеюсь, ты сегодня улыбалась',
+'Ты — мой котенок ❤',
+'Спасибо, что ты есть',
+'Ты для меня очень важна! ♡(ˊᵕˋ๑)',
+'Я всегда в тебя верю ✧',
+'Я рядом (ㅅ´ ˘ `)♡',
+'Ты умничка! ꒰ ˶• ༝ •˶꒱',
+'Ты молодчинка! (੭ˊᵕˋ)੭',
+'Ты милашка ૮₍ ˃ ⤙ ˂ ₎ა',
+'Береги себя, ладно? ໒꒰ྀིっ˕ -。꒱ྀི১',
+'Выспись хорошенько ˃̵ᴗ˂̵',
+'Не переживай, всё будет хорошо ♡'];
+
+
+const bgColors = [
+'lightpink', 'skyblue', 'lightgreen', 'lavender',
+'lightyellow', 'plum', 'coral', 'bisque',
+'aquamarine', 'mistyrose', 'honeydew',
+'lavenderblush', 'oldlace'];
+
+
+function createPopup() {
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+
+  const popup = document.createElement('div');
+  popup.className = 'popup';
+
+  const width = Math.floor(Math.random() * 120) + 220; 
+  const height = Math.floor(Math.random() * 40) + 60;
+
+  const x = Math.floor(Math.random() * (screenWidth - width));
+  const y = Math.floor(Math.random() * (screenHeight - height));
+
+  popup.style.width = width + 'px';
+  popup.style.height = height + 'px';
+  popup.style.left = x + 'px';
+  popup.style.top = y + 'px';
+  popup.style.backgroundColor = bgColors[Math.floor(Math.random() * bgColors.length)];
+  popup.style.fontSize = Math.floor(Math.random() * 4) + 14 + 'px';
+
+  const tipText = tips[Math.floor(Math.random() * tips.length)];
+
+  popup.innerHTML = `
+        <div class="close-btn">×</div>
+        <div class="message">${tipText}</div>
+    `;
+
+  document.getElementById('popup-container').appendChild(popup);
+
+  const closeBtn = popup.querySelector('.close-btn');
+  closeBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    popup.style.opacity = '0';
+    popup.style.transform = 'scale(0.8)';
+    setTimeout(() => popup.remove(), 300);
+  });
+
+  popup.addEventListener('click', function () {
+    this.style.opacity = '0';
+    this.style.transform = 'scale(0.8)';
+    setTimeout(() => this.remove(), 300);
+  });
+
+  return popup;
+}
+
+function createMultiplePopups(count) {
+  for (let i = 0; i < count; i++) {if (window.CP.shouldStopExecution(0)) break;
+    setTimeout(() => {
+      createPopup();
+    }, i * 100);
+  }
+
+  window.CP.exitedLoop(0);setTimeout(() => {
+    const popups = document.querySelectorAll('.popup');
+    popups.forEach(popup => {
+      popup.style.opacity = '0';
+      popup.style.transform = 'scale(0.8)';
+      setTimeout(() => popup.remove(), 300);
+    });
+
+    const hint = document.createElement('div');
+    hint.innerHTML = 'Ровно год назад мы начали общаться 💜<br>Но это ещё не всё...<br>Готовься к продолжению:3'; 
+    hint.style.cssText = `
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 15px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center; font-size: 20px; z-index: 1001; color: #333;
+            font-family: "Segoe UI", sans-serif;
+        `;
+    document.body.appendChild(hint);
+  }, 15000); 
+}
+
+window.addEventListener('load', () => {
+  createMultiplePopups(60);
+});
+//# sourceURL=pen.js
+  </script>
+</body>
+</html>
